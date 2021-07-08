@@ -2,6 +2,10 @@
 
 {% block contents %}
     <div style="margin: 2rem; text-align: center">
+        <form action="/accounts/hello_world/">
+            {% csrf_token %}
+            <input type="sumbit" class="btn btn-dark rounded-pill px-5">
+        </form>
         <h1>METHOD</h1>
         <h3>{{ text }}</h3>
     </div>
