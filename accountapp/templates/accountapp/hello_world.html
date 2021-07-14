@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
-{% block contents %}
+{% block content %}
+
     <div style="margin: 2rem; text-align: center">
-        <form action="/accounts/hello_world/">
-            {% csrf_token %}
-            <input type="sumbit" class="btn btn-dark rounded-pill px-5">
-        </form>
         <h1>METHOD</h1>
-        <h3>{{ text }}</h3>
+        <form action="/accounts/hello_world/" method="post">
+            {% csrf_token %}
+            <input type="text" name="input">
+            <input type="submit" class="btn btn-dark rounded-pill px-5">
+        </form>
+        {% for data in data_list %}
+            <h3>{{ data.text }}</h3>
+        {% endfor %}
     </div>
 
 {% endblock %}
