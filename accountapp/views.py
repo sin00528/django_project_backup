@@ -12,20 +12,23 @@ from accountapp.models import HelloWorld
 
 
 def hello_world(request):
-    if request.method == "POST":
+    if request.user.is_authenticated:
+        if request.method == "POST":
 
-        temp = request.POST.get('input')
+            temp = request.POST.get('input')
 
-        new_data = HelloWorld()
-        new_data.text = temp
-        new_data.save()
+            new_data = HelloWorld()
+            new_data.text = temp
+            new_data.save()
 
-        return HttpResponseRedirect(reverse('accountapp:hello_world'))
+            return HttpResponseRedirect(reverse('accountapp:hello_world'))
 
+        else:
+            data_list = HelloWorld.objects.all()
+            return render(request, 'accountapp/hello_world.html',
+                          context={'data_list': data_list})
     else:
-        data_list = HelloWorld.objects.all()
-        return render(request, 'accountapp/hello_world.html',
-                      context={'data_list': data_list})
+        return HttpResponseRedirect(reverse('accountapp:login'))
 
 class AccountCreateView(CreateView):
     model = User
